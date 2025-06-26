@@ -1,0 +1,9 @@
+Conclusion:
+
+This project demonstrates the development of a healthcare chatbot using IBM Granite and Streamlit.
+It includes AI model integration, backend logic, user interface, and deployment strategy.
+
+Future Work:
+- Real-time symptom analysis with medical database
+- Integrate IBM Watson APIs for diagnosis
+- Multi-language support

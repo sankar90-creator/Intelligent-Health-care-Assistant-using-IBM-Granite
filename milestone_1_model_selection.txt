@@ -1,0 +1,13 @@
+Milestone 1: Model Selection and Architecture
+
+Chosen Model: IBM Granite (LLM-based NLP model)
+Purpose: Understand symptoms and provide suggestions
+Selection Justification:
+- High language understanding
+- Easy integration with IBM Watson APIs
+- Good documentation and support
+
+Architecture Plan:
+- Input: User query
+- Processing: Granite model
+- Output: Health-related text response

@@ -1,0 +1,12 @@
+Deployment Instructions:
+
+1. Backend (Flask):
+   - Run app.py: python app.py
+   - Host on Render or Heroku
+
+2. Frontend (Streamlit):
+   - Run ui_streamlit.py: streamlit run ui_streamlit.py
+
+3. Optional:
+   - Package using Docker for cloud deployment
+   - Use IBM Cloud to integrate Watson services

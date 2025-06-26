@@ -1,0 +1,11 @@
+Milestone 2: Core Functionalities
+
+Functions:
+- Symptom checker (basic keyword-based)
+- Health tips (based on query)
+- Emergency contact info
+
+Logic:
+- Predefined keyword patterns
+- Response selection
+- Future enhancement: Use fine-tuned models

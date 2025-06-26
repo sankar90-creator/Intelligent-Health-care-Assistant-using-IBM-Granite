@@ -1,0 +1,10 @@
+Technical Architecture:
+
+- Frontend: Streamlit Web Interface
+- Backend: Flask (app.py)
+- Model: IBM Granite for natural language processing
+- API Integration: IBM Watson (simulated or real API)
+- Hosting: IBM Cloud / Heroku / Render
+
+Data Flow:
+User -> Streamlit UI -> Flask Backend -> IBM Granite -> Response -> User
