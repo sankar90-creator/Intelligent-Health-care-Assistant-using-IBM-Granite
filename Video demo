@@ -1,1 +1,49 @@
+import streamlit as st
+from ibm_watson import NaturalLanguageUnderstandingV1
+from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
+from ibm_watson.natural_language_understanding_v1 import Features, KeywordsOptions
 
+# Replace with your IBM Watson credentials
+API_KEY = "your_ibm_api_key"
+URL = "your_ibm_service_url"
+
+# Initialize Watson NLU
+authenticator = IAMAuthenticator(API_KEY)
+nlu = NaturalLanguageUnderstandingV1(
+    version='2022-04-07',
+    authenticator=authenticator
+)
+nlu.set_service_url(URL)
+
+# Streamlit UI
+st.set_page_config(page_title="Health Care Assistant", page_icon="🩺")
+st.title("🩺 Intelligent Health Care Assistant")
+st.write("Powered by IBM Watson NLU")
+
+# Form for patient details
+with st.form("patient_form"):
+    name = st.text_input("Patient Name")
+    gender = st.selectbox("Gender", ["Male", "Female", "Other"])
+    symptoms = st.text_area("Describe Symptoms", height=150)
+    submitted = st.form_submit_button("Analyze Symptoms")
+
+if submitted:
+    if not name or not symptoms:
+        st.warning("Please fill all the fields.")
+    else:
+        st.info("🔍 Analyzing symptoms...")
+        try:
+            response = nlu.analyze(
+                text=symptoms,
+                features=Features(keywords=KeywordsOptions(limit=5))
+            ).get_result()
+
+            keywords = response.get('keywords', [])
+            if keywords:
+                st.success("✅ Keywords extracted:")
+                for kw in keywords:
+                    st.write(f"• {kw['text']} (Relevance: {kw['relevance']:.2f})")
+            else:
+                st.warning("No significant medical keywords found.")
+        except Exception as e:
+            st.error(f"Error during analysis: {str(e)}")
