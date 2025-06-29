@@ -1,1 +1,40 @@
+from ibm_watson import NaturalLanguageUnderstandingV1
+from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
+from ibm_watson.natural_language_understanding_v1 import Features, KeywordsOptions
 
+# Replace with your IBM Watson NLU credentials
+API_KEY = 'your-ibm-api-key'
+URL = 'your-ibm-service-url'
+
+# Setup Watson NLU client
+authenticator = IAMAuthenticator(API_KEY)
+nlu = NaturalLanguageUnderstandingV1(
+    version='2022-04-07',
+    authenticator=authenticator
+)
+nlu.set_service_url(URL)
+
+# Function to analyze symptoms using Watson NLU
+def analyze_symptoms(symptom_description):
+    response = nlu.analyze(
+        text=symptom_description,
+        features=Features(keywords=KeywordsOptions(limit=5))
+    ).get_result()
+    return response['keywords']
+
+# Function to collect patient details
+def get_patient_info():
+    print("Welcome to Health Assistant\n")
+    name = input("Enter patient name: ")
+    gender = input("Enter gender (Male/Female/Other): ")
+    symptoms = input("Describe your symptoms: ")
+
+    print(f"\nAnalyzing symptoms for {name}...\n")
+    keywords = analyze_symptoms(symptoms)
+
+    print("🩺 Important Keywords Detected:")
+    for kw in keywords:
+        print(f"→ {kw['text']} (Relevance: {kw['relevance']:.2f})")
+
+if __name__ == "__main__":
+    get_patient_info()
